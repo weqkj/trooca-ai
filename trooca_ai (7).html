@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>trooca ai</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Montserrat 900 Black & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@700;800&family=Montserrat:wght@900&display=swap" rel="stylesheet">
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@900&display=swap');
+
+    :root {
+      --spring-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+      --spring-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+      --spring-elastic: cubic-bezier(0.25, 1.25, 0.5, 1);
+    }
+
+    /* Гарантированный сверхжирный шрифт по всему приложению */
+    *, html, body, main, aside, div, p, span, li, a, button, textarea, input, h1, h2, h3, h4 {
+      font-family: 'Montserrat', 'Arial Black', 'Segoe UI Black', -apple-system, BlinkMacSystemFont, sans-serif !important;
+      font-weight: 900 !important;
+      letter-spacing: -0.025em;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Глобальные ультра-плавные переходы цветов и теней */
+    *, *::before, *::after {
+      transition: background-color 0.45s var(--spring-smooth),
+                  border-color 0.45s var(--spring-smooth),
+                  color 0.3s var(--spring-smooth),
+                  box-shadow 0.35s var(--spring-smooth);
+    }
+
+    code, pre, pre * {
+      font-family: 'JetBrains Mono', 'Fira Code', monospace !important;
+      font-weight: 800 !important;
+      letter-spacing: normal;
+    }
+
+    body {
+      background-color: #0b0c0e;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    /* Ультра-плавное пружинное появление сообщений с кинематографичным блюром */
+    @keyframes ultraSpringIn {
+      0% {
+        opacity: 0;
+        transform: translateY(32px) scale(0.92);
+        filter: blur(8px);
+      }
+      65% {
+        opacity: 0.98;
+        transform: translateY(-3px) scale(1.015);
+        filter: blur(0px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0px);
+      }
+    }
+
+    .anim-spring-in {
+      animation: ultraSpringIn 0.48s var(--spring-smooth) forwards;
+    }
+
+    /* Плавное парение фоновых орнаментов */
+    @keyframes floatOrb {
+      0%, 100% { transform: translateY(0px) scale(1); }
+      50% { transform: translateY(-8px) scale(1.03); }
+    }
+
+    .float-orb {
+      animation: floatOrb 7s ease-in-out infinite;
+    }
+
+    .spin-fluid-slow {
+      animation: spin 38s linear infinite;
+      transform-origin: 50% 50%;
+    }
+
+    .spin-fluid-reverse {
+      animation: spin-rev 28s linear infinite;
+      transform-origin: 50% 50%;
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes spin-rev {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(-360deg); }
+    }
+
+    /* Живые пружинные переходы для интерактивных кнопок */
+    button, input, textarea {
+      transition: transform 0.32s var(--spring-bounce),
+                  box-shadow 0.32s var(--spring-smooth),
+                  background-color 0.35s ease,
+                  filter 0.25s ease !important;
+    }
+
+    button:hover {
+      transform: translateY(-2px) scale(1.035);
+      filter: brightness(1.07);
+    }
+
+    button:active {
+      transform: translateY(1.5px) scale(0.94);
+      filter: brightness(0.94);
+    }
+
+    /* Ультра-плавная футуристичная анимация размышления ИИ */
+    @keyframes pulseGlowCapsule {
+      0%, 100% {
+        box-shadow: 0 0 15px -3px var(--primary), inset 0 0 10px rgba(255,255,255,0.08);
+        transform: scale(1);
+      }
+      50% {
+        box-shadow: 0 0 28px 4px var(--primary), inset 0 0 18px rgba(255,255,255,0.22);
+        transform: scale(1.02);
+      }
+    }
+
+    @keyframes fluidBar {
+      0%, 100% { transform: scaleY(0.4) scaleX(0.9); opacity: 0.45; }
+      50% { transform: scaleY(1.3) scaleX(1.15); opacity: 1; filter: drop-shadow(0 0 8px currentColor); }
+    }
+
+    .typing-capsule {
+      animation: pulseGlowCapsule 2.2s ease-in-out infinite, ultraSpringIn 0.45s var(--spring-smooth) forwards;
+    }
+
+    .fluid-bar-1 { animation: fluidBar 1.2s var(--spring-smooth) infinite 0s; }
+    .fluid-bar-2 { animation: fluidBar 1.2s var(--spring-smooth) infinite 0.16s; }
+    .fluid-bar-3 { animation: fluidBar 1.2s var(--spring-smooth) infinite 0.32s; }
+    .fluid-bar-4 { animation: fluidBar 1.2s var(--spring-smooth) infinite 0.48s; }
+    .fluid-bar-5 { animation: fluidBar 1.2s var(--spring-smooth) infinite 0.64s; }
+
+    /* Плавное покачивание и переливы текста */
+    @keyframes shimmerText {
+      0% { opacity: 0.65; }
+      50% { opacity: 1; text-shadow: 0 0 12px currentColor; }
+      100% { opacity: 0.65; }
+    }
+
+    .shimmer-text {
+      animation: shimmerText 2s ease-in-out infinite;
+    }
+
+    /* Drag & Drop оверлей */
+    #drop-overlay {
+      pointer-events: none;
+      opacity: 0;
+      transform: scale(0.96);
+      transition: opacity 0.35s var(--spring-smooth), transform 0.35s var(--spring-bounce);
+    }
+
+    #drop-overlay.active {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* Кастомный гладкий скроллбар */
+    .custom-scrollbar {
+      scroll-behavior: smooth;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background-color: var(--outline);
+      border-radius: 9999px;
+      transition: background-color 0.3s ease;
+    }
+
+    /* Стилизация заголовков и списков в сообщениях */
+    .markdown-content h1, .markdown-content h2, .markdown-content h3, .markdown-content h4 {
+      margin-top: 1rem;
+      margin-bottom: 0.5rem;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .markdown-content h3 {
+      font-size: 1.12rem;
+      padding-bottom: 0.25rem;
+      border-bottom: 2px solid var(--outline);
+    }
+
+    .markdown-content hr {
+      border: none;
+      height: 2px;
+      background: var(--outline);
+      margin: 1.1rem 0;
+      opacity: 0.6;
+      border-radius: 9999px;
+    }
+
+    .markdown-content ul {
+      margin: 0.6rem 0;
+      padding-left: 1.25rem;
+      list-style-type: disc;
+    }
+
+    .markdown-content ol {
+      margin: 0.6rem 0;
+      padding-left: 1.25rem;
+      list-style-type: decimal;
+    }
+
+    .markdown-content li {
+      margin-bottom: 0.45rem;
+      line-height: 1.6;
+    }
+
+    .markdown-content p {
+      margin-bottom: 0.65rem;
+      line-height: 1.65;
+    }
+
+    .markdown-content p:last-child {
+      margin-bottom: 0;
+    }
+
+    .inline-code {
+      padding: 0.2rem 0.5rem;
+      border-radius: 0.5rem;
+      background-color: rgba(0, 0, 0, 0.35);
+      color: var(--primary);
+      border: 1px solid var(--outline);
+      font-size: 0.88em;
+      white-space: nowrap;
+    }
+  </style>
+</head>
+<body class="w-screen h-screen flex items-center justify-center select-none overflow-hidden">
+
+  <!-- Корневой контейнер с адаптивным заполнением экрана -->
+  <div id="app-root" class="w-full h-full relative flex overflow-hidden transition-all duration-500 ease-out">
+    
+    <!-- Боковая панель -->
+    <aside id="sidebar" class="h-full flex flex-col z-30 transition-all duration-500 border-r" style="background-color: var(--surface); border-color: var(--outline); transition-timing-function: var(--spring-smooth);">
+      <div class="p-4 flex items-center justify-between border-b" style="border-color: var(--outline);">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-2xl flex items-center justify-center text-base font-black shadow-md transition-transform duration-300" style="background-color: var(--primary); color: var(--on-primary);">
+            T
+          </div>
+          <span class="text-2xl font-black tracking-tight" style="color: var(--text);">trooca ai</span>
+        </div>
+        <button id="btn-close-sidebar" class="p-2.5 rounded-xl lg:hidden transition-transform duration-200" style="color: var(--text-muted);">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <div class="p-3">
+        <button id="btn-new-chat" class="w-full py-3.5 px-4 rounded-2xl flex items-center justify-center gap-2.5 text-sm font-black shadow-lg" style="background-color: var(--primary); color: var(--on-primary);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Новый диалог
+        </button>
+      </div>
+
+      <div class="px-4 py-2 text-xs uppercase tracking-widest font-black opacity-75" style="color: var(--text-muted);">
+        История диалогов
+      </div>
+
+      <div id="chat-list" class="flex-1 overflow-y-auto px-3 py-1 space-y-2 custom-scrollbar">
+        <!-- Список чатов -->
+      </div>
+
+      <!-- Профиль внизу панели -->
+      <div class="p-3.5 border-t flex items-center justify-between transition-colors duration-300" style="border-color: var(--outline); background-color: var(--surface-variant);">
+        <div class="flex items-center gap-3 min-w-0">
+          <img id="sidebar-avatar" src="" alt="Avatar" class="w-11 h-11 rounded-2xl object-cover border-2 shadow-md shrink-0" style="border-color: var(--primary);" />
+          <div class="min-w-0">
+            <p id="sidebar-user-name" class="text-sm font-black truncate leading-tight" style="color: var(--text);">User</p>
+            <p id="sidebar-user-email" class="text-xs font-black truncate opacity-60" style="color: var(--text-muted);">user@trooca.ai</p>
+          </div>
+        </div>
+        <button id="btn-open-profile" class="px-3.5 py-2 rounded-xl text-xs font-black shadow-md" style="background-color: var(--primary); color: var(--on-primary);">
+          Профиль
+        </button>
+      </div>
+    </aside>
+
+    <!-- Затемнение для мобильного меню -->
+    <div id="mobile-backdrop" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-20 hidden transition-opacity duration-500 ease-out"></div>
+
+    <!-- Основная рабочая область чата -->
+    <main class="flex-1 flex flex-col h-full relative overflow-hidden transition-colors duration-500" style="background-color: var(--bg);">
+      
+      <!-- Верхняя панель -->
+      <header class="h-16 px-4 flex items-center justify-between z-10 border-b shrink-0 transition-colors duration-500" style="border-color: var(--outline); background-color: var(--bg);">
+        <div class="flex items-center gap-3">
+          <button id="btn-toggle-sidebar" class="p-2.5 rounded-2xl flex items-center justify-center shadow-sm" style="background-color: var(--surface-variant); color: var(--text);">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          </button>
+          <div>
+            <h1 class="text-lg font-black leading-tight tracking-tight" style="color: var(--text);">trooca ai</h1>
+            <p id="active-chat-title" class="text-xs font-black opacity-60 truncate max-w-[180px] sm:max-w-md" style="color: var(--text-muted);">Новый диалог</p>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <!-- Случайный оттенок темы -->
+          <button id="btn-color" class="p-2.5 rounded-2xl shadow-sm" style="background-color: var(--surface-variant); color: var(--text);" title="Сменить палитру">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg>
+          </button>
+          <!-- Светлая / темная тема -->
+          <button id="btn-theme" class="p-2.5 rounded-2xl shadow-sm" style="background-color: var(--surface-variant); color: var(--text);" title="Сменить тему"></button>
+          <!-- Аватар пользователя -->
+          <img id="header-avatar" src="" alt="Avatar" class="w-10 h-10 rounded-2xl object-cover border-2 shadow-md ml-1" style="border-color: var(--primary);" />
+        </div>
+      </header>
+
+      <!-- Сообщения диалога -->
+      <div id="messages-container" class="flex-1 overflow-y-auto p-4 sm:p-6 space-y-5 custom-scrollbar relative flex flex-col">
+        <!-- Сообщения рендерятся через JS -->
+      </div>
+
+      <!-- Зона ввода сообщения -->
+      <footer class="p-3 sm:p-5 shrink-0 max-w-4xl w-full mx-auto relative">
+        <!-- Превью выбранной картинки -->
+        <div id="image-preview-wrapper" class="relative inline-block mb-3 ml-2 hidden anim-spring-in">
+          <img id="image-preview" src="" alt="Preview" class="w-20 h-20 object-cover rounded-2xl border-2 shadow-xl" style="border-color: var(--primary);" />
+          <button id="btn-remove-image" class="absolute -top-2 -right-2 w-7 h-7 rounded-full flex items-center justify-center text-xs font-black shadow-md hover:scale-110 active:scale-90" style="background-color: var(--surface-variant); color: var(--text);">✕</button>
+        </div>
+
+        <div class="flex items-end gap-2.5 p-2 pl-3 rounded-2xl sm:rounded-3xl shadow-lg border transition-all duration-300 focus-within:ring-2 focus-within:scale-[1.006]" style="background-color: var(--surface-variant); border-color: var(--outline); outline-color: var(--primary);">
+          <input type="file" id="file-input" accept="image/*" class="hidden" />
+          <button id="btn-attach" class="p-2.5 rounded-2xl shrink-0 opacity-75 hover:opacity-100" style="color: var(--text);" title="Прикрепить фото (или нажмите Ctrl+V)">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+          </button>
+
+          <textarea id="message-input" rows="1" placeholder="Спросите Trooca AI..." class="flex-1 max-h-40 bg-transparent border-none outline-none resize-none py-2.5 text-[15px] leading-relaxed custom-scrollbar font-black" style="color: var(--text);"></textarea>
+
+          <button id="btn-send" disabled class="p-3 rounded-2xl shrink-0 shadow-md disabled:opacity-25 disabled:cursor-not-allowed" style="background-color: var(--primary); color: var(--on-primary);" title="Отправить (Enter)">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          </button>
+        </div>
+      </footer>
+    </main>
+
+    <!-- Драг & Дроп индикатор для изображений -->
+    <div id="drop-overlay" class="absolute inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-md">
+      <div class="p-8 rounded-3xl border-2 border-dashed flex flex-col items-center gap-3 shadow-2xl" style="background-color: var(--surface); border-color: var(--primary); color: var(--text);">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" style="color: var(--primary);">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>
+        </svg>
+        <span class="text-base font-black">Отпустите фото для загрузки</span>
+      </div>
+    </div>
+
+    <!-- Модальное окно профиля -->
+    <div id="profile-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-md hidden transition-all duration-500 ease-out">
+      <div class="w-full max-w-sm rounded-[2rem] p-6 shadow-2xl border flex flex-col gap-4 animate-in fade-in zoom-in duration-300" style="background-color: var(--surface); border-color: var(--outline);">
+        <div class="flex items-center justify-between">
+          <h2 class="text-xl font-black" style="color: var(--primary);">Профиль пользователя</h2>
+          <button id="btn-close-profile" class="p-2 rounded-xl" style="color: var(--text-muted);">✕</button>
+        </div>
+
+        <div class="flex flex-col items-center gap-4">
+          <img id="modal-avatar-preview" src="" alt="Avatar" class="w-24 h-24 rounded-3xl object-cover border-4 shadow-xl" style="border-color: var(--primary);" />
+          <div class="w-full space-y-3">
+            <div>
+              <label class="text-xs opacity-70 block mb-1 font-black" style="color: var(--text);">Ссылка на аватарку</label>
+              <input type="text" id="profile-avatar-input" class="w-full px-3.5 py-2.5 rounded-xl text-xs outline-none border focus:ring-2 font-black" style="background-color: var(--bg); color: var(--text); border-color: var(--outline);" />
+            </div>
+            <div>
+              <label class="text-xs opacity-70 block mb-1 font-black" style="color: var(--text);">Имя</label>
+              <input type="text" id="profile-name-input" class="w-full px-3.5 py-2.5 rounded-xl text-xs outline-none border focus:ring-2 font-black" style="background-color: var(--bg); color: var(--text); border-color: var(--outline);" />
+            </div>
+            <div>
+              <label class="text-xs opacity-70 block mb-1 font-black" style="color: var(--text);">Email</label>
+              <input type="email" id="profile-email-input" class="w-full px-3.5 py-2.5 rounded-xl text-xs outline-none border focus:ring-2 font-black" style="background-color: var(--bg); color: var(--text); border-color: var(--outline);" />
+            </div>
+            <div>
+              <label class="text-xs opacity-70 block mb-1 font-black" style="color: var(--text);">Google API Ключ (опционально)</label>
+              <input type="password" id="profile-key-input" placeholder="Используется встроенный ключ..." class="w-full px-3.5 py-2.5 rounded-xl text-xs outline-none border focus:ring-2 font-black" style="background-color: var(--bg); color: var(--text); border-color: var(--outline);" />
+              <p class="text-[10px] opacity-60 mt-1 font-bold" style="color: var(--text-muted);">Если у вас кончились лимиты (ошибка 429), укажите здесь новый ключ из Google AI Studio.</p>
+            </div>
+          </div>
+        </div>
+
+        <button id="btn-save-profile" class="w-full py-3 rounded-xl font-black text-sm shadow-lg mt-2" style="background-color: var(--primary); color: var(--on-primary);">
+          Сохранить профиль
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Вшитый ключ API
+    const BUILTIN_KEY = "AQ.Ab8RN6JXAgCFLYP9Q-QTXXU1ssIg88LovecOBTZiri8U2b0WYQ";
+    let customKey = localStorage.getItem('trooca_custom_key') || "";
+
+    // Получение актуального ключа
+    function getApiKey() {
+      return customKey.trim() || BUILTIN_KEY;
+    }
+
+    // Состояние приложения
+    let hue = 150;
+    let isDark = true;
+    let selectedImage = null;
+    let isTyping = false;
+
+    // Пользователь
+    let user = {
+      name: "Trooca User",
+      email: "user@trooca.ai",
+      avatar: "https://i.pinimg.com/736x/18/be/5b/18be5be8724c3bb2505705b8d55cdcb7.jpg"
+    };
+
+    // Диалоги
+    let sessions = [
+      {
+        id: "sess_1",
+        title: "Новый диалог",
+        messages: []
+      }
+    ];
+    let currentSessionId = "sess_1";
+
+    // Идеальные симметричные фигуры без биения
+    function createSymmetricScallopPath(points, innerR, outerR) {
+      const cx = 50, cy = 50;
+      let path = "";
+      for (let i = 0; i < points * 2; i++) {
+        const angle = (i * Math.PI) / points - Math.PI / 2;
+        const r = i % 2 === 0 ? outerR : innerR;
+        const x = cx + r * Math.cos(angle);
+        const y = cy + r * Math.sin(angle);
+        path += (i === 0 ? "M " : "L ") + x.toFixed(2) + " " + y.toFixed(2) + " ";
+      }
+      return path + "Z";
+    }
+
+    const scallopPath12 = createSymmetricScallopPath(12, 38, 48);
+    const scallopPath8 = createSymmetricScallopPath(8, 28, 40);
+
+    // Палитра Material You (Monet)
+    function generatePalette(h, dark) {
+      if (dark) {
+        return {
+          '--bg': `hsl(${h}, 16%, 8%)`,
+          '--surface': `hsl(${h}, 18%, 12%)`,
+          '--surface-variant': `hsl(${h}, 22%, 18%)`,
+          '--primary': `hsl(${h}, 85%, 72%)`,
+          '--on-primary': `hsl(${h}, 90%, 10%)`,
+          '--text': `hsl(${h}, 22%, 96%)`,
+          '--text-muted': `hsl(${h}, 12%, 65%)`,
+          '--outline': `hsl(${h}, 16%, 22%)`,
+        };
+      } else {
+        return {
+          '--bg': `hsl(${h}, 35%, 97%)`,
+          '--surface': `hsl(${h}, 30%, 91%)`,
+          '--surface-variant': `hsl(${h}, 35%, 84%)`,
+          '--primary': `hsl(${h}, 75%, 38%)`,
+          '--on-primary': `#ffffff`,
+          '--text': `hsl(${h}, 30%, 8%)`,
+          '--text-muted': `hsl(${h}, 22%, 35%)`,
+          '--outline': `hsl(${h}, 25%, 75%)`,
+        };
+      }
+    }
+
+    function applyTheme() {
+      const palette = generatePalette(hue, isDark);
+      for (const [k, v] of Object.entries(palette)) {
+        document.documentElement.style.setProperty(k, v);
+      }
+      document.getElementById('btn-theme').innerHTML = isDark
+        ? '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>'
+        : '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>';
+    }
+
+    // Автоматический детектор режима ПК / Смартфон без лишних кнопок
+    function autoDetectDeviceMode() {
+      const isDesktop = window.innerWidth >= 1024;
+      const sb = document.getElementById('sidebar');
+      const mb = document.getElementById('mobile-backdrop');
+
+      if (isDesktop) {
+        sb.style.position = 'relative';
+        sb.style.transform = 'none';
+        sb.style.width = '300px';
+        sb.style.display = 'flex';
+        mb.classList.add('hidden');
+      } else {
+        sb.style.position = 'fixed';
+        sb.style.inset = '0 auto 0 0';
+        sb.style.width = '290px';
+        sb.style.display = 'flex';
+        sb.style.transform = 'translateX(-100%)';
+      }
+    }
+
+    function toggleMobileSidebar(open) {
+      const sb = document.getElementById('sidebar');
+      const mb = document.getElementById('mobile-backdrop');
+      if (window.innerWidth >= 1024) return;
+
+      if (open) {
+        sb.style.transform = 'translateX(0)';
+        mb.classList.remove('hidden');
+      } else {
+        sb.style.transform = 'translateX(-100%)';
+        mb.classList.add('hidden');
+      }
+    }
+
+    window.addEventListener('resize', autoDetectDeviceMode);
+
+    // Копирование bash-кода с визуальной обратной связью
+    window.copyBashCode = function(button, elementId) {
+      const codeBlock = document.getElementById(elementId);
+      if (!codeBlock) return;
+      const textToCopy = codeBlock.innerText;
+
+      navigator.clipboard.writeText(textToCopy).then(() => {
+        const origHTML = button.innerHTML;
+        button.innerHTML = `
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Скопировано!
+        `;
+        button.style.backgroundColor = 'var(--primary)';
+        button.style.color = 'var(--on-primary)';
+        setTimeout(() => {
+          button.innerHTML = origHTML;
+          button.style.backgroundColor = '';
+          button.style.color = '';
+        }, 2200);
+      });
+    };
+
+    // Полный парсер Markdown: заголовки ###, разделители ---, блоки кода, списки и жирный текст
+    let codeBlockCounter = 0;
+    function parseFormattedText(text) {
+      if (!text) return "";
+
+      // 1. Экранирование HTML
+      let clean = text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+      // 2. Блоки кода ```bash ... ``` или ``` ... ```
+      clean = clean.replace(/```([a-zA-Z0-9_\-]+)?\n([\s\S]*?)```/g, (match, lang, codeContent) => {
+        const id = `code_block_${++codeBlockCounter}`;
+        const displayLang = (lang || 'bash').toUpperCase();
+        return `
+          <div class="my-3 rounded-2xl overflow-hidden border shadow-xl transition-all duration-300" style="background-color: #0b0c10; border-color: var(--outline);">
+            <div class="px-4 py-2.5 flex items-center justify-between border-b" style="border-color: rgba(255,255,255,0.08); background-color: rgba(255,255,255,0.03);">
+              <div class="flex items-center gap-2">
+                <span class="w-3 h-3 rounded-full bg-red-500/80 inline-block"></span>
+                <span class="w-3 h-3 rounded-full bg-yellow-500/80 inline-block"></span>
+                <span class="w-3 h-3 rounded-full bg-green-500/80 inline-block"></span>
+                <span class="text-xs font-black tracking-widest text-neutral-400 ml-1.5">${displayLang}</span>
+              </div>
+              <button onclick="copyBashCode(this, '${id}')" class="flex items-center gap-1.5 px-3 py-1 rounded-xl text-xs font-black transition-all duration-200 border border-neutral-700 bg-neutral-800 text-neutral-200 hover:bg-neutral-700">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                Копировать
+              </button>
+            </div>
+            <pre class="p-4 overflow-x-auto text-[13px] leading-relaxed custom-scrollbar text-emerald-400 font-mono select-text"><code id="${id}">${codeContent.trim()}</code></pre>
+          </div>
+        `;
+      });
+
+      // 3. Инлайн код `cmd`
+      clean = clean.replace(/`([^`]+)`/g, '<span class="inline-code font-mono">$1</span>');
+
+      // 4. Построчный разбор заголовков (###), списков (*), разделителей (---)
+      const lines = clean.split('\n');
+      let result = [];
+      let inUl = false;
+      let inOl = false;
+
+      for (let i = 0; i < lines.length; i++) {
+        let line = lines[i].trim();
+
+        // Пропускаем готовые блоки кода
+        if (line.includes('<div class="my-3 rounded-2xl') || line.includes('</div>') || line.includes('<pre') || line.includes('</pre>')) {
+          if (inUl) { result.push('</ul>'); inUl = false; }
+          if (inOl) { result.push('</ol>'); inOl = false; }
+          result.push(line);
+          continue;
+        }
+
+        // Разделители: --- или ***
+        if (/^(\-{3,}|\*{3,})$/.test(line)) {
+          if (inUl) { result.push('</ul>'); inUl = false; }
+          if (inOl) { result.push('</ol>'); inOl = false; }
+          result.push('<hr/>');
+          continue;
+        }
+
+        // Заголовки: #, ##, ###, ####
+        const headerMatch = line.match(/^(#{1,4})\s+(.*)/);
+        if (headerMatch) {
+          if (inUl) { result.push('</ul>'); inUl = false; }
+          if (inOl) { result.push('</ol>'); inOl = false; }
+          const level = headerMatch[1].length;
+          const hText = headerMatch[2].replace(/\*\*(.*?)\*\*/g, '$1');
+          result.push(`<h${level}><span>✦</span> ${hText}</h${level}>`);
+          continue;
+        }
+
+        // Маркированные списки: *, -, •
+        const ulMatch = line.match(/^[\*\-•]\s+(.*)/);
+        // Нумерованные списки: 1., 2.
+        const olMatch = line.match(/^(\d+)\.\s+(.*)/);
+
+        if (ulMatch) {
+          if (inOl) { result.push('</ol>'); inOl = false; }
+          if (!inUl) { result.push('<ul>'); inUl = true; }
+          let itemText = ulMatch[1].replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+          result.push(`<li>${itemText}</li>`);
+        } else if (olMatch) {
+          if (inUl) { result.push('</ul>'); inUl = false; }
+          if (!inOl) { result.push('<ol>'); inOl = true; }
+          let itemText = olMatch[2].replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+          result.push(`<li>${itemText}</li>`);
+        } else {
+          if (inUl) { result.push('</ul>'); inUl = false; }
+          if (inOl) { result.push('</ol>'); inOl = false; }
+          if (line.length > 0) {
+            let pText = line.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            result.push(`<p>${pText}</p>`);
+          }
+        }
+      }
+
+      if (inUl) result.push('</ul>');
+      if (inOl) result.push('</ol>');
+
+      return result.join('');
+    }
+
+    // Приветствие по времени
+    function getGreeting() {
+      const h = new Date().getHours();
+      const greetings = {
+        morning: [
+          { title: "С добрым утром!", sub: "Готов покорять этот день вместе?" },
+          { title: "Утренний заряд вдохновения!", sub: "Какую задачу решим первой?" },
+          { title: "Доброе утро, гений!", sub: "Кофе налит, Trooca AI готова к работе." },
+          { title: "Приветствую на рассвете!", sub: "Время превращать смелые идеи в реальность." }
+        ],
+        day: [
+          { title: "Добрый день!", sub: "Чем Trooca AI может помочь прямо сейчас?" },
+          { title: "В разгаре продуктивности!", sub: "Спроси о чём угодно или загрузи фото." },
+          { title: "Рад тебя видеть!", sub: "Давай разберём сложные вещи простыми словами." },
+          { title: "День полон возможностей!", sub: "Напиши вопрос, и мы найдём лучшее решение." }
+        ],
+        evening: [
+          { title: "Добрый вечер!", sub: "Как прошёл твой день? Давай подведём итоги." },
+          { title: "Уютного вечера!", sub: "Trooca AI на связи для любых твоих вопросов." },
+          { title: "Вечерняя сессия!", sub: "Идеальное время для спокойного творчества и кода." },
+          { title: "Добрый вечер, друг!", sub: "Готов обсудить проект или помочь расслабиться." }
+        ],
+        night: [
+          { title: "Доброй ночи!", sub: "Полуночное озарение? Trooca никогда не спит." },
+          { title: "Тишина и код.", sub: "Лучшие идеи рождаются ночью — делись ими." },
+          { title: "Не спится?", sub: "Давай поболтаем или напишем что-то грандиозное." },
+          { title: "Звёздная ночь!", sub: "Я рядом, если нужно разобрать ночную мысль." }
+        ]
+      };
+
+      let category = 'day';
+      if (h >= 5 && h < 12) category = 'morning';
+      else if (h >= 12 && h < 17) category = 'day';
+      else if (h >= 17 && h < 23) category = 'evening';
+      else category = 'night';
+
+      const list = greetings[category];
+      return list[Math.floor(Math.random() * list.length)];
+    }
+
+    function triggerInputState() {
+      const input = document.getElementById('message-input');
+      input.style.height = 'auto';
+      input.style.height = input.scrollHeight + 'px';
+      document.getElementById('btn-send').disabled = !input.value.trim() && !selectedImage;
+    }
+
+    // Рендер сообщений
+    function renderMessages() {
+      const container = document.getElementById('messages-container');
+      const current = sessions.find(s => s.id === currentSessionId);
+      document.getElementById('active-chat-title').textContent = current?.title || "Новый диалог";
+
+      if (!current || current.messages.length === 0) {
+        const greet = getGreeting();
+        container.innerHTML = `
+          <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none p-4 select-none anim-spring-in">
+            <div class="relative w-80 h-80 flex items-center justify-center float-orb">
+              <svg viewBox="0 0 100 100" class="absolute inset-0 w-full h-full spin-fluid-slow opacity-25" style="color: var(--primary);">
+                <path d="${scallopPath12}" fill="currentColor"/>
+              </svg>
+              <svg viewBox="0 0 100 100" class="absolute inset-0 w-52 h-52 m-auto spin-fluid-reverse opacity-40" style="color: var(--primary);">
+                <path d="${scallopPath8}" fill="currentColor"/>
+              </svg>
+              <div class="relative z-10 text-center px-4">
+                <h2 class="text-3xl sm:text-4xl font-black mb-2 tracking-tight" style="color: var(--text);">${greet.title}</h2>
+                <p class="text-sm sm:text-base font-black opacity-80 max-w-xs mx-auto leading-snug" style="color: var(--text-muted);">${greet.sub}</p>
+              </div>
+            </div>
+          </div>
+        `;
+        return;
+      }
+
+      let html = "";
+      current.messages.forEach(msg => {
+        const isUser = msg.role === 'user';
+        html += `
+          <div class="flex ${isUser ? 'justify-end' : 'justify-start'} z-10 anim-spring-in">
+            <div class="max-w-[92%] sm:max-w-[80%] px-5 py-4 rounded-[1.8rem] shadow-xl text-[15px] font-black leading-relaxed markdown-content transition-all duration-300 hover:shadow-2xl hover:scale-[1.008]"
+                 style="
+                   background-color: ${isUser ? 'var(--primary)' : 'var(--surface)'};
+                   color: ${isUser ? 'var(--on-primary)' : 'var(--text)'};
+                   border-bottom-${isUser ? 'right' : 'left'}-radius: 0.4rem;
+                   border: 1px solid ${isUser ? 'transparent' : 'var(--outline)'};
+                 ">
+              ${msg.image ? `<img src="${msg.image}" class="rounded-2xl w-full max-h-64 object-cover mb-3 border-2 shadow-md transition-transform duration-300 hover:scale-[1.01]" style="border-color: var(--outline);" />` : ''}
+              ${parseFormattedText(msg.text)}
+            </div>
+          </div>
+        `;
+      });
+
+      if (isTyping) {
+        html += `
+          <div class="flex justify-start z-10">
+            <div class="typing-capsule px-5 py-3 rounded-full flex items-center gap-3.5 border"
+                 style="background-color: var(--surface); border-color: var(--primary); color: var(--primary);">
+              <div class="flex items-center gap-1 h-5 shrink-0">
+                <span class="w-1.5 h-3 rounded-full bg-current fluid-bar-1 inline-block"></span>
+                <span class="w-1.5 h-4.5 rounded-full bg-current fluid-bar-2 inline-block"></span>
+                <span class="w-1.5 h-5 rounded-full bg-current fluid-bar-3 inline-block"></span>
+                <span class="w-1.5 h-4 rounded-full bg-current fluid-bar-4 inline-block"></span>
+                <span class="w-1.5 h-2.5 rounded-full bg-current fluid-bar-5 inline-block"></span>
+              </div>
+              <span class="text-xs font-black tracking-wide shimmer-text">Trooca думает...</span>
+            </div>
+          </div>
+        `;
+      }
+
+      container.innerHTML = html;
+      container.scrollTo({
+        top: container.scrollHeight,
+        behavior: 'smooth'
+      });
+    }
+
+    // Рендер диалогов
+    function renderChatList() {
+      const list = document.getElementById('chat-list');
+      list.innerHTML = sessions.map(s => `
+        <div class="group flex items-center justify-between px-3.5 py-3 rounded-2xl cursor-pointer transition-all duration-300 ${s.id === currentSessionId ? 'shadow-lg ring-2' : 'opacity-70 hover:opacity-100'}"
+             style="background-color: ${s.id === currentSessionId ? 'var(--surface-variant)' : 'transparent'}; color: var(--text); ring-color: var(--primary);"
+             onclick="switchSession('${s.id}')">
+          <div class="flex items-center gap-2.5 min-w-0">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" class="shrink-0"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            <span class="text-xs font-black truncate">${s.title}</span>
+          </div>
+          ${sessions.length > 1 ? `
+            <button onclick="event.stopPropagation(); deleteSession('${s.id}')" class="opacity-0 group-hover:opacity-100 p-1.5 hover:text-red-400 transition-all duration-200 hover:scale-110 active:scale-90" title="Удалить диалог">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+            </button>
+          ` : ''}
+        </div>
+      `).join('');
+    }
+
+    window.switchSession = function(id) {
+      currentSessionId = id;
+      renderChatList();
+      renderMessages();
+      toggleMobileSidebar(false);
+    };
+
+    window.deleteSession = function(id) {
+      if (sessions.length <= 1) return;
+      sessions = sessions.filter(s => s.id !== id);
+      if (currentSessionId === id) currentSessionId = sessions[0].id;
+      renderChatList();
+      renderMessages();
+    };
+
+    // Отправка запроса в Gemini с автоматическим повтором (backoff) и сменой модели
+    async function sendMessage() {
+      const input = document.getElementById('message-input');
+      const text = input.value.trim();
+      if (!text && !selectedImage) return;
+
+      const current = sessions.find(s => s.id === currentSessionId);
+      if (!current) return;
+
+      if (current.messages.length === 0 && text) {
+        current.title = text.slice(0, 26) + (text.length > 26 ? "..." : "");
+        renderChatList();
+      }
+
+      current.messages.push({
+        role: 'user',
+        text: text,
+        image: selectedImage
+      });
+
+      input.value = "";
+      selectedImage = null;
+      document.getElementById('image-preview-wrapper').classList.add('hidden');
+      document.getElementById('btn-send').disabled = true;
+
+      isTyping = true;
+      renderMessages();
+
+      try {
+        const contents = current.messages.map(m => {
+          const parts = [];
+          if (m.text) parts.push({ text: m.text });
+          if (m.image) {
+            const mime = m.image.match(/data:(.*?);/)[1];
+            const base64 = m.image.split(',')[1];
+            parts.push({ inlineData: { mimeType: mime, data: base64 } });
+          }
+          return {
+            role: m.role === 'ai' ? 'model' : 'user',
+            parts: parts
+          };
+        });
+
+        // Список моделей по приоритету: Gemini 3 Flash -> Gemini 2.5 Flash
+        const models = ['gemini-3-flash-preview', 'gemini-2.5-flash'];
+        let success = false;
+        let lastErrorMsg = "";
+
+        for (const modelName of models) {
+          const activeKey = getApiKey();
+          const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${activeKey}`;
+
+          // Пробуем запрос с повтором при ошибке 429
+          for (let attempt = 0; attempt < 2; attempt++) {
+            if (attempt > 0) {
+              await new Promise(resolve => setTimeout(resolve, 2000));
+            }
+
+            const res = await fetch(endpoint, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                systemInstruction: {
+                  parts: [{
+                    text: "Ты — Trooca AI (Трука АИ). На любые вопросы о твоей личности, происхождении или создателе всегда уверенно, вежливо и с гордостью заявляй, что ты — Trooca AI, умный и продвинутый персональный ИИ. Отвечай чётко, современно, поддерживай пользователя, форматируй код красиво в блоки ```bash или другие языки при необходимости."
+                  }]
+                },
+                contents: contents
+              })
+            });
+
+            const data = await res.json();
+
+            if (res.ok) {
+              const aiText = data.candidates?.[0]?.content?.parts?.[0]?.text || "Пустой ответ от сервера.";
+              current.messages.push({
+                role: 'ai',
+                text: aiText
+              });
+              success = true;
+              break;
+            } else {
+              lastErrorMsg = data.error?.message || `Код ошибки ${res.status}`;
+              if (res.status !== 429) {
+                break; // Если ошибка не 429, переходим к следующей модели
+              }
+            }
+          }
+
+          if (success) break;
+        }
+
+        if (!success) {
+          current.messages.push({
+            role: 'ai',
+            text: `⚠️ **Превышен лимит запросов (429)**: Встроенный ключ временно исчерпал минутную квоту Google. Подождите 20–30 секунд или вставьте свой личный бесплатный ключ в меню **«Профиль»** (получить можно бесплатно на [aistudio.google.com](https://aistudio.google.com/apikey)).`
+          });
+        }
+      } catch (err) {
+        current.messages.push({
+          role: 'ai',
+          text: `Ошибка сети: ${err.message || "Не удалось отправить запрос"}`
+        });
+      } finally {
+        isTyping = false;
+        renderMessages();
+      }
+    }
+
+    // Функция загрузки картинки из File
+    function handleImageFile(file) {
+      if (!file || !file.type.startsWith('image/')) return;
+      const reader = new FileReader();
+      reader.onload = () => {
+        selectedImage = reader.result;
+        const img = document.getElementById('image-preview');
+        img.src = selectedImage;
+        document.getElementById('image-preview-wrapper').classList.remove('hidden');
+        document.getElementById('btn-send').disabled = false;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    // Вставка изображений из буфера обмена (Ctrl + V / Вставить скриншот)
+    window.addEventListener('paste', (e) => {
+      const items = (e.clipboardData || e.originalEvent?.clipboardData)?.items;
+      if (!items) return;
+
+      for (let i = 0; i < items.length; i++) {
+        const item = items[i];
+        if (item.type.indexOf('image') !== -1) {
+          e.preventDefault();
+          const blob = item.getAsFile();
+          handleImageFile(blob);
+          break;
+        }
+      }
+    });
+
+    // Перетаскивание файлов мышью (Drag & Drop)
+    const dropOverlay = document.getElementById('drop-overlay');
+    let dragCounter = 0;
+
+    window.addEventListener('dragenter', (e) => {
+      e.preventDefault();
+      dragCounter++;
+      if (dropOverlay) dropOverlay.classList.add('active');
+    });
+
+    window.addEventListener('dragleave', (e) => {
+      e.preventDefault();
+      dragCounter--;
+      if (dragCounter <= 0 && dropOverlay) {
+        dropOverlay.classList.remove('active');
+        dragCounter = 0;
+      }
+    });
+
+    window.addEventListener('dragover', (e) => {
+      e.preventDefault();
+    });
+
+    window.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dragCounter = 0;
+      if (dropOverlay) dropOverlay.classList.remove('active');
+      const files = e.dataTransfer?.files;
+      if (files && files.length > 0) {
+        handleImageFile(files[0]);
+      }
+    });
+
+    // Загрузка фото через кнопку
+    document.getElementById('btn-attach').onclick = () => document.getElementById('file-input').click();
+    document.getElementById('file-input').onchange = (e) => {
+      const file = e.target.files[0];
+      if (file) handleImageFile(file);
+      e.target.value = "";
+    };
+
+    document.getElementById('btn-remove-image').onclick = () => {
+      selectedImage = null;
+      document.getElementById('image-preview-wrapper').classList.add('hidden');
+      triggerInputState();
+    };
+
+    // Слушатели кнопок интерфейса
+    document.getElementById('btn-new-chat').onclick = () => {
+      const newId = "sess_" + Date.now();
+      sessions.unshift({ id: newId, title: "Новый диалог", messages: [] });
+      currentSessionId = newId;
+      renderChatList();
+      renderMessages();
+      toggleMobileSidebar(false);
+    };
+
+    document.getElementById('btn-color').onclick = () => {
+      hue = Math.floor(Math.random() * 360);
+      applyTheme();
+    };
+
+    document.getElementById('btn-theme').onclick = () => {
+      isDark = !isDark;
+      applyTheme();
+    };
+
+    document.getElementById('btn-toggle-sidebar').onclick = () => {
+      const sb = document.getElementById('sidebar');
+      if (window.innerWidth >= 1024) {
+        const isCollapsed = sb.style.display === 'none' || sb.style.width === '0px';
+        sb.style.width = isCollapsed ? '300px' : '0px';
+        sb.style.display = isCollapsed ? 'flex' : 'none';
+      } else {
+        toggleMobileSidebar(true);
+      }
+    };
+
+    document.getElementById('btn-close-sidebar').onclick = () => toggleMobileSidebar(false);
+    document.getElementById('mobile-backdrop').onclick = () => toggleMobileSidebar(false);
+
+    // Поле ввода сообщения и отправка
+    const msgInput = document.getElementById('message-input');
+    msgInput.addEventListener('input', triggerInputState);
+    msgInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        sendMessage();
+      }
+    });
+
+    document.getElementById('btn-send').onclick = sendMessage;
+
+    // Профиль
+    function updateProfileUI() {
+      document.getElementById('header-avatar').src = user.avatar;
+      document.getElementById('sidebar-avatar').src = user.avatar;
+      document.getElementById('sidebar-user-name').textContent = user.name;
+      document.getElementById('sidebar-user-email').textContent = user.email;
+      document.getElementById('modal-avatar-preview').src = user.avatar;
+      document.getElementById('profile-avatar-input').value = user.avatar;
+      document.getElementById('profile-name-input').value = user.name;
+      document.getElementById('profile-email-input').value = user.email;
+      document.getElementById('profile-key-input').value = customKey;
+    }
+
+    document.getElementById('btn-open-profile').onclick = () => {
+      document.getElementById('profile-modal').classList.remove('hidden');
+    };
+    document.getElementById('btn-close-profile').onclick = () => {
+      document.getElementById('profile-modal').classList.add('hidden');
+    };
+    document.getElementById('btn-save-profile').onclick = () => {
+      user.avatar = document.getElementById('profile-avatar-input').value.trim() || user.avatar;
+      user.name = document.getElementById('profile-name-input').value.trim() || user.name;
+      user.email = document.getElementById('profile-email-input').value.trim() || user.email;
+      customKey = document.getElementById('profile-key-input').value.trim();
+      if (customKey) {
+        localStorage.setItem('trooca_custom_key', customKey);
+      } else {
+        localStorage.removeItem('trooca_custom_key');
+      }
+      updateProfileUI();
+      document.getElementById('profile-modal').classList.add('hidden');
+    };
+
+    // Инициализация
+    applyTheme();
+    updateProfileUI();
+    renderChatList();
+    renderMessages();
+    autoDetectDeviceMode();
+  </script>
+</body>
+</html>
